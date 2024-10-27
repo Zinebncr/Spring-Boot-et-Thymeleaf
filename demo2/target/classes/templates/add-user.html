@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+    <style>
+        /* General Styles */
+        body {
+            background-color: #f0f4f8; /* Light background color for a clean look */
+            font-family: 'Arial', sans-serif; /* Clean sans-serif font */
+            color: #444; /* Dark grey for text */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+        }
+
+        /* Container for the form */
+        .container {
+            max-width: 360px; /* Maximum width of the form */
+            width: 100%; /* Full width on small screens */
+            padding: 30px; /* Padding around the form */
+            background-color: #ffffff; /* White background for the form */
+            border-radius: 10px; /* Slightly rounded corners */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            transition: box-shadow 0.3s; /* Smooth shadow transition */
+        }
+
+        /* Container hover effect */
+        .container:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+        }
+
+        /* Heading Style */
+        h1 {
+            text-align: center; /* Center the heading */
+            color: #2c3e50; /* Dark blue-grey for the heading */
+            margin-bottom: 20px; /* Space below the heading */
+            font-size: 26px; /* Larger font size */
+            font-weight: bold; /* Bold text for emphasis */
+        }
+
+        /* Label Styles */
+        .label {
+            display: block; /* Make labels block elements */
+            margin-bottom: 5px; /* Space below each label */
+            font-weight: normal; /* Normal weight for labels */
+            color: #555; /* Dark grey for labels */
+        }
+
+        /* Input Field Styles */
+        .input-field {
+            width: 100%; /* Full width input fields */
+            padding: 12px; /* Padding for input fields */
+            margin-bottom: 15px; /* Space below input fields */
+            border: 1px solid #ddd; /* Light border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px; /* Increase font size */
+            transition: border-color 0.3s; /* Smooth border transition */
+        }
+
+        /* Input Field Focus Styles */
+        .input-field:focus {
+            border-color: #3498db; /* Blue border on focus */
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Glow effect on focus */
+        }
+
+        /* Error Message Styles */
+        .error-message {
+            color: #e74c3c; /* Red color for error messages */
+            font-size: 14px; /* Font size for error messages */
+            margin-top: -10px; /* Negative margin to position error messages closer to inputs */
+            margin-bottom: 15px; /* Space below error messages */
+        }
+
+        /* Submit Button Styles */
+        .submit-button {
+            width: 100%; /* Full width for the submit button */
+            padding: 12px; /* Padding for the button */
+            background-color: #3498db; /* Blue background color */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px; /* Increase font size */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s, transform 0.2s; /* Smooth transition */
+        }
+
+        /* Submit Button Hover Styles */
+        .submit-button:hover {
+            background-color: rgba(102, 175, 102, 0.94); /* Darker blue on hover */
+            transform: translateY(-2px); /* Slightly lift the button on hover */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Add New User</h1>
+    <form th:action="@{/adduser}" th:object="${user}" method="post">
+        <label for="name" class="label">Name</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="Enter name" class="input-field">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></span>
+
+        <label for="email" class="label">Email</label>
+        <input type="text" th:field="*{email}" id="email" placeholder="Enter email" class="input-field">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></span>
+
+        <input type="submit" value="Add User" class="submit-button">
+    </form>
+</div>
+</body>
+</html>

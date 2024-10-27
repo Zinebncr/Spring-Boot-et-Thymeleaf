@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <style>
+        /* General Styles */
+        body {
+            background-color: #f4f7f9; /* Light background for a clean look */
+            font-family: 'Arial', sans-serif; /* Clean and modern font */
+            color: #333; /* Default text color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            justify-content: center;
+        }
+
+        /* Container for the user list */
+        .container {
+            max-width: 800px; /* Maximum width of the container */
+            width: 90%; /* Full width on small screens */
+            padding: 20px;
+            background-color: #ffffff; /* White background for the table */
+            border-radius: 10px; /* Slightly rounded corners */
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        }
+
+        /* Heading Style */
+        h2 {
+            text-align: center; /* Center the heading */
+            color: #4e749c; /* Dark blue for the heading */
+            margin-bottom: 20px; /* Space below the heading */
+            font-size: 24px; /* Font size */
+            font-weight: 600; /* Semi-bold font weight */
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%; /* Full width for the table */
+            border-collapse: collapse; /* Collapse borders */
+            margin-bottom: 20px; /* Space below the table */
+        }
+
+        /* Table Header Styles */
+        thead {
+            background-color: #37597e; /* Header background color */
+            color: white; /* Header text color */
+        }
+
+        th, td {
+            padding: 12px; /* Padding for table cells */
+            text-align: left; /* Left align text in cells */
+            border: 1px solid #ddd; /* Light grey border for cells */
+        }
+
+        /* Row Hover Effect */
+        tbody tr:hover {
+            background-color: #f1f1f1; /* Light grey background on hover */
+        }
+
+        /* Link Styles */
+        a {
+            color: #3a5b80; /* Link color */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold; /* Bold text for links */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Underline links on hover */
+        }
+
+        /* No users message */
+        .no-users {
+            text-align: center; /* Center text */
+            color: #888; /* Light grey for no users message */
+        }
+
+        /* Button for adding new user */
+        .add-user {
+            text-align: center; /* Center the button */
+            margin-top: 20px; /* Space above the button */
+        }
+
+        .add-user a {
+            padding: 10px 20px; /* Padding for button */
+            background-color: #446b95; /* Button background color */
+            color: white; /* Button text color */
+            border-radius: 5px; /* Rounded corners */
+            font-weight: bold; /* Bold text */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        .add-user a:hover {
+            background-color: #2d4b6c; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+<div class="container" th:switch="${users}">
+    <h2 th:case="null" class="no-users">No users yet!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="add-user">
+        <a href="/signup">Add a new user</a>
+    </div>
+</div>
+</body>
+</html>
